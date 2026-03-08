@@ -1,0 +1,25 @@
+{
+  "dialect": "MySQL 8",
+  "tables": [
+    {
+      "name": "sales",
+      "description": "Fact-style demo sales table used for analytics questions in the POC.",
+      "columns": [
+        {"name": "order_id", "type": "VARCHAR(50)", "description": "Unique order identifier."},
+        {"name": "order_date", "type": "DATE", "description": "Date the order was placed."},
+        {"name": "region", "type": "VARCHAR(50)", "description": "Sales region such as North, South, East, West."},
+        {"name": "category", "type": "VARCHAR(50)", "description": "Product category."},
+        {"name": "product_name", "type": "VARCHAR(100)", "description": "Product name."},
+        {"name": "units_sold", "type": "INT", "description": "Units sold on the order line."},
+        {"name": "sales_amount", "type": "DECIMAL(12,2)", "description": "Revenue amount for the order line."},
+        {"name": "customer_segment", "type": "VARCHAR(50)", "description": "Customer segment."}
+      ],
+      "business_rules": [
+        "Use SUM(sales_amount) for revenue.",
+        "Use SUM(units_sold) for unit-based questions.",
+        "Average order value can be approximated as SUM(sales_amount) / COUNT(DISTINCT order_id).",
+        "For monthly trends, group by DATE_FORMAT(order_date, '%Y-%m')."
+      ]
+    }
+  ]
+}
